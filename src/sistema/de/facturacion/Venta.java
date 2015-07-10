@@ -23,6 +23,8 @@ public class Venta extends javax.swing.JFrame {
     /**
      * Creates new form proovedor
      */
+    
+    private ResultSet rsProductosBuscados;
     public Venta() {
         initComponents();
     }
@@ -36,7 +38,7 @@ public class Venta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Modificar = new javax.swing.JButton();
+        btModificarRenglon = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -44,17 +46,15 @@ public class Venta extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jTCliente = new javax.swing.JTextField();
-        jTCantidad = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jTPrducto = new javax.swing.JTextField();
+        btBuscarProducto = new javax.swing.JButton();
+        tfProducto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTcedulaorif = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jTNumeroVenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jBVer = new javax.swing.JButton();
         jBNueva = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
@@ -62,22 +62,21 @@ public class Venta extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabledeventa = new javax.swing.JTable();
         jLabel16 = new javax.swing.JLabel();
-        tfFecha = new javax.swing.JTextField();
-        jBAgregar = new javax.swing.JButton();
-        Facturar = new javax.swing.JButton();
+        btAgregarProducto = new javax.swing.JButton();
+        crearVenta = new javax.swing.JButton();
         jBuscar = new javax.swing.JButton();
         jBModificar = new javax.swing.JButton();
-        jBEliminar = new javax.swing.JButton();
+        btEliminarRenglon = new javax.swing.JButton();
+        lbCantidadTotalProducto = new javax.swing.JLabel();
+        spCantidad = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Modificar.setText("Modificar");
-        getContentPane().add(Modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 90, 30));
+        btModificarRenglon.setText("Modificar");
+        getContentPane().add(btModificarRenglon, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 90, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -103,7 +102,6 @@ public class Venta extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, 120, -1));
         getContentPane().add(jTCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 170, -1));
-        getContentPane().add(jTCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 50, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Cliente");
@@ -111,11 +109,16 @@ public class Venta extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setText("Cantidad");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
 
-        jButton2.setText("Buscar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 100, 30));
-        getContentPane().add(jTPrducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 140, 20));
+        btBuscarProducto.setText("Buscar");
+        btBuscarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btBuscarProductoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 100, 30));
+        getContentPane().add(tfProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 140, 20));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("PRODUCTO");
@@ -130,10 +133,6 @@ public class Venta extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("NUMERO DE VENTA");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("FECHA");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 40, 20));
 
         jBVer.setText("Ver");
         getContentPane().add(jBVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 90, 40));
@@ -152,7 +151,7 @@ public class Venta extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Producto", "Descripcion", "Cantidad", "Precio U", "Importe"
+                "Codigo", "Producto", "Descripcion", "Cantidad", "Precio", "Importe"
             }
         ));
         jScrollPane2.setViewportView(jTabledeventa);
@@ -162,23 +161,16 @@ public class Venta extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA (LOGO)_1 pequeño.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 410, 220, 80));
 
-        tfFecha.addActionListener(new java.awt.event.ActionListener() {
+        btAgregarProducto.setText("Agregar");
+        getContentPane().add(btAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 90, 30));
+
+        crearVenta.setText("Facturar");
+        crearVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfFechaActionPerformed(evt);
+                crearVentaActionPerformed(evt);
             }
         });
-        getContentPane().add(tfFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 140, 20));
-
-        jBAgregar.setText("Agregar");
-        getContentPane().add(jBAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, 90, 30));
-
-        Facturar.setText("Facturar");
-        Facturar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FacturarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Facturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 160, 50));
+        getContentPane().add(crearVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 160, 50));
 
         jBuscar.setText("Buscar");
         jBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,8 +183,10 @@ public class Venta extends javax.swing.JFrame {
         jBModificar.setText("Modificar");
         getContentPane().add(jBModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 270, 90, 40));
 
-        jBEliminar.setText("Eliminar");
-        getContentPane().add(jBEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 90, 30));
+        btEliminarRenglon.setText("Eliminar");
+        getContentPane().add(btEliminarRenglon, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, 90, 30));
+        getContentPane().add(lbCantidadTotalProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 60, 20));
+        getContentPane().add(spCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 170, 60, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -202,20 +196,10 @@ public class Venta extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 510));
 
-        jButton11.setText("jButton11");
-        getContentPane().add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, -1, -1));
-
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfFechaActionPerformed
-
-    private void FacturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FacturarActionPerformed
+    private void crearVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearVentaActionPerformed
 
         menu principal = new menu();
         dispose();
@@ -225,7 +209,7 @@ public class Venta extends javax.swing.JFrame {
         principal.setVisible(true);
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_FacturarActionPerformed
+    }//GEN-LAST:event_crearVentaActionPerformed
 
     private void jLabel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseMoved
 
@@ -247,9 +231,9 @@ public class Venta extends javax.swing.JFrame {
 
             try {
                 Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                rsClientesBuscados = st.executeQuery(sql);
+                rsProductosBuscados = st.executeQuery(sql);
                 modeloListaClientes = new DefaultListModel();
-                while (rsClientesBuscados.next()) {
+                while (rsProductosBuscados.next()) {
                     modeloListaClientes.addElement(rsClientesBuscados.getObject("nombre_cliente")
                             + " " + rsClientesBuscados.getObject("apellido_cliente"));
                 }
@@ -260,6 +244,23 @@ public class Venta extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jBuscarMouseClicked
+
+    private void btBuscarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btBuscarProductoMouseClicked
+        String sql = "SELECT nombre_producto, descripcion_producto, id_tproducto, precio_producto, cantidad, id_producto"
+                    + "  FROM producto WHERE producto.nombre_producto like '%" + tfProductoBuscar.getText() + "%'";
+
+            try {
+                Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                rsProductosBuscados = st.executeQuery(sql);
+                modeloListaProducto = new DefaultListModel();
+                while (rsProductosBuscados.next()) {
+                    modeloListaProducto.addElement(rsProductosBuscados.getObject("nombre_producto"));
+                }
+                listaProductos.setModel(modeloListaProducto);
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_btBuscarProductoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -304,24 +305,21 @@ public class Venta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Facturar;
-    private javax.swing.JButton Modificar;
-    private javax.swing.JButton jBAgregar;
-    private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton btAgregarProducto;
+    private javax.swing.JButton btBuscarProducto;
+    private javax.swing.JButton btEliminarRenglon;
+    private javax.swing.JButton btModificarRenglon;
+    private javax.swing.JButton crearVenta;
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBNueva;
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBVer;
     private javax.swing.JButton jBuscar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -329,15 +327,15 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTCantidad;
     private javax.swing.JTextField jTCliente;
     private javax.swing.JTextField jTNumeroVenta;
-    private javax.swing.JTextField jTPrducto;
     private javax.swing.JTable jTabledeventa;
     private javax.swing.JTextField jTcedulaorif;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextField tfFecha;
+    private javax.swing.JLabel lbCantidadTotalProducto;
+    private javax.swing.JSpinner spCantidad;
+    private javax.swing.JTextField tfProducto;
     // End of variables declaration//GEN-END:variables
 }

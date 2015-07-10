@@ -36,6 +36,9 @@ public class menu extends javax.swing.JFrame {
         initComponents();
 
         this.setLocationRelativeTo(null);
+        if (Login.usr != null){
+            lbUsuario.setText(Login.usr.getDescripcion() + " "+Login.usr.getCedula());
+        }
     }
 
     /**
@@ -51,6 +54,7 @@ public class menu extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        lbUsuario = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
@@ -71,7 +75,8 @@ public class menu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anigif.gif"))); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+        getContentPane().add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 720, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -152,11 +157,11 @@ public class menu extends javax.swing.JFrame {
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
         dispose();
-        OrdenCompra oc = new OrdenCompra();
+        Venta vt = new Venta();
 
-        oc.setTitle("Orden De Compra");
-        oc.setLocationRelativeTo(null);
-        oc.setVisible(true);        // TODO add your handling code here:
+        vt.setTitle("Orden De Compra");
+        vt.setLocationRelativeTo(null);
+        vt.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
@@ -243,6 +248,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lbUsuario;
     // End of variables declaration//GEN-END:variables
 
 }

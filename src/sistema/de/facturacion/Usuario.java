@@ -24,21 +24,21 @@ import sistema.de.facturacion.menu;
  *
  * @author Luis
  */
-public class cliente extends javax.swing.JFrame {
+public class Usuario extends javax.swing.JFrame {
 
-    private DefaultListModel modeloListaClientes;
-    private ResultSet rsClientesBuscados;
+    private DefaultListModel modeloListaUsuario;
+    private ResultSet rsUsuarioBuscados;
 
-    public cliente() {
+    public Usuario() {
         initComponents();
         enableComponents(panelDatos, false);
-        modeloListaClientes = (DefaultListModel) listaClientes.getModel();
+        modeloListaUsuario = (DefaultListModel) listaUsuario.getModel();
         this.setLocationRelativeTo(null);
         WindowListener exitListener = new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                new menu().setVisible(true);
+                new Login().setVisible(true);
             }
         };
         this.addWindowListener(exitListener);
@@ -56,32 +56,20 @@ public class cliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        listaClientes = new javax.swing.JList();
+        listaUsuario = new javax.swing.JList();
         panelDatos = new javax.swing.JPanel();
         btAgregar = new javax.swing.JButton();
         btLimpiar = new javax.swing.JButton();
-        tfTelefono = new javax.swing.JTextField();
-        tfEmial = new javax.swing.JTextField();
-        tfDireccion = new javax.swing.JTextField();
-        tfApellido = new javax.swing.JTextField();
+        tfClave = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
-        tfRif = new javax.swing.JTextField();
         tfCedula = new javax.swing.JTextField();
-        tfTipoCliente = new javax.swing.JTextField();
+        tfLogin = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         tfClienteBuscar = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
@@ -93,15 +81,15 @@ public class cliente extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        listaClientes.setModel(new DefaultListModel());
-        listaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        listaUsuario.setModel(new DefaultListModel());
+        listaUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaClientesMouseClicked(evt);
+                listaUsuarioMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(listaClientes);
+        jScrollPane2.setViewportView(listaUsuario);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 240, 180));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 170, 240, 180));
 
         panelDatos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         panelDatos.setOpaque(false);
@@ -118,7 +106,7 @@ public class cliente extends javax.swing.JFrame {
                 btAgregarActionPerformed(evt);
             }
         });
-        panelDatos.add(btAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 120, 50));
+        panelDatos.add(btAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 120, 50));
 
         btLimpiar.setText("Limpiar");
         btLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,31 +114,15 @@ public class cliente extends javax.swing.JFrame {
                 btLimpiarMouseClicked(evt);
             }
         });
-        panelDatos.add(btLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 110, 50));
-        panelDatos.add(tfTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 200, 30));
-        panelDatos.add(tfEmial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 200, 30));
-        panelDatos.add(tfDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 200, 30));
-
-        tfApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfApellidoActionPerformed(evt);
-            }
-        });
-        panelDatos.add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 200, 30));
+        panelDatos.add(btLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 110, 50));
+        panelDatos.add(tfClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 200, 30));
 
         tfNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNombreActionPerformed(evt);
             }
         });
-        panelDatos.add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 200, 30));
-
-        tfRif.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfRifActionPerformed(evt);
-            }
-        });
-        panelDatos.add(tfRif, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 200, 30));
+        panelDatos.add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 200, 30));
 
         tfCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,77 +130,32 @@ public class cliente extends javax.swing.JFrame {
             }
         });
         panelDatos.add(tfCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 200, 30));
-        panelDatos.add(tfTipoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 200, 30));
+        panelDatos.add(tfLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 200, 30));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Tipo de Cliente");
-        panelDatos.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, -1));
+        jLabel17.setText("Login");
+        panelDatos.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Cedula");
-        panelDatos.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Rif");
-        panelDatos.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        panelDatos.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Nombre");
-        panelDatos.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 60, 40));
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Apellido");
-        panelDatos.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 60, -1));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Direccion");
-        panelDatos.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 60, 40));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("E-Mail");
-        panelDatos.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 60, 40));
+        panelDatos.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 60, 40));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Telefono");
-        panelDatos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 60, 40));
+        jLabel7.setText("clave");
+        panelDatos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 60, 40));
 
-        getContentPane().add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 350, 390));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente1.png"))); // NOI18N
-        jLabel10.setToolTipText("Agregar Cliente");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 70, 100));
-
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empresa2.png"))); // NOI18N
-        jLabel8.setToolTipText("Agregar Empresa");
-        jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 130));
+        getContentPane().add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 350, 240));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA (LOGO)_1 pequeño.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 220, 80));
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel15.setText("Agregar Cliente");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 140, 40));
 
         tfClienteBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,22 +167,17 @@ public class cliente extends javax.swing.JFrame {
                 tfClienteBuscarKeyReleased(evt);
             }
         });
-        getContentPane().add(tfClienteBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 50, 170, 30));
-
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(240, 240, 240)));
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 250, 200));
+        getContentPane().add(tfClienteBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 170, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Datos del Cliente");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 170, 40));
+        jLabel4.setText("Datos del Usuario");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 170, 40));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Clientes");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 130, 30));
+        jLabel2.setText("Usuarios");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 70, 30));
 
         jButton7.setText("Atras");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -271,7 +193,7 @@ public class cliente extends javax.swing.JFrame {
                 btBuscarMouseClicked(evt);
             }
         });
-        getContentPane().add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, 170, 40));
+        getContentPane().add(btBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, 170, 40));
 
         btModificar.setText("Modificar");
         btModificar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -284,7 +206,7 @@ public class cliente extends javax.swing.JFrame {
                 btModificarActionPerformed(evt);
             }
         });
-        getContentPane().add(btModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 100, 50));
+        getContentPane().add(btModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 100, 50));
 
         btEliminar.setText("Eliminar");
         btEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -292,7 +214,7 @@ public class cliente extends javax.swing.JFrame {
                 btEliminarMouseClicked(evt);
             }
         });
-        getContentPane().add(btEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, 100, 50));
+        getContentPane().add(btEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 360, 100, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -314,17 +236,9 @@ public class cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfCedulaActionPerformed
 
-    private void tfRifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfRifActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfRifActionPerformed
-
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombreActionPerformed
-
-    private void tfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfApellidoActionPerformed
 
     private void tfClienteBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfClienteBuscarActionPerformed
         // TODO add your handling code here:
@@ -332,10 +246,9 @@ public class cliente extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        menu principal = new menu();
+        Login principal = new Login();
         dispose();
 
-        principal.setTitle("Menu Principal");
         principal.setLocationRelativeTo(null);
         principal.setVisible(true);
 
@@ -356,37 +269,15 @@ public class cliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btAgregarActionPerformed
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        enableComponents(panelDatos, true);
-        tfCedula.setEnabled(false);
-        tfCedula.setText("");
-        tfTipoCliente.setEnabled(false);
-        tfTipoCliente.setText("Empresa");
-        btAgregar.setText("Agregar");
-    }//GEN-LAST:event_jLabel8MouseClicked
-
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        enableComponents(panelDatos, true);
-        tfRif.setEnabled(false);
-        tfRif.setText("");
-        tfTipoCliente.setEnabled(false);
-        tfTipoCliente.setText("Cliente");
-        btAgregar.setText("Agregar");
-    }//GEN-LAST:event_jLabel10MouseClicked
-
     private void btLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLimpiarMouseClicked
-        tfApellido.setText("");
-        tfCedula.setText("");
-        tfDireccion.setText("");
-        tfEmial.setText("");
+       tfCedula.setText("");
         tfNombre.setText("");
-        tfRif.setText("");
-        tfTelefono.setText("");
-        tfTipoCliente.setText("");
+        tfClave.setText("");
+        tfLogin.setText("");
     }//GEN-LAST:event_btLimpiarMouseClicked
 
     private void btAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgregarMouseClicked
-        if (tfApellido.equals("") || tfCedula.equals("")) {
+        if (tfNombre.equals("") || tfCedula.equals("")) {
             JOptionPane.showMessageDialog(null, "Debe escribir que tipo de usuario es y una Clave");
             return;
         } else {
@@ -394,39 +285,29 @@ public class cliente extends javax.swing.JFrame {
                 if (btAgregar.getText().equals("Agregar")) {
 
                     PreparedStatement pps = Conexion.getConnection().prepareStatement(""
-                            + "INSERT INTO cliente("
-                            + " cedula_cliente, rif, nombre_cliente, apellido_cliente, domicilio_cliente, "
-                            + " id_tcliente, email_cliente, tlf_cliente)"
-                            + " VALUES (?, ?, ?, ?, ?, "
-                            + " ?, ?, ?);");
+                            + "INSERT INTO usuario("
+                            + " nombre_usuario, claveacceso, descripcion_usuario, cedula_usuario)"
+                            + " VALUES (?, ?, ?, ?);");
 
-                    pps.setObject(1, tfCedula.getText());
-                    pps.setString(2, tfRif.getText().equals("") ? null : tfRif.getText());
+                    pps.setString(1, tfLogin.getText());
+                    pps.setString(2, tfClave.getText());
                     pps.setString(3, tfNombre.getText());
-                    pps.setString(4, tfApellido.getText());
-                    pps.setString(5, tfDireccion.getText());
-                    pps.setInt(6, tfCedula.isEnabled() ? 2 : 1);
-                    pps.setString(7, tfEmial.getText());
-                    pps.setInt(8, tfTelefono.getText().equals("") ? null : Integer.parseInt(tfTelefono.getText()));
+                    pps.setString(4, tfCedula.getText());
                     pps.executeUpdate();
 
-                    JOptionPane.showMessageDialog(null, "Se ha creado un nuevo " + (tfCedula.isEnabled() ? "Cliente" : "Empresa"));
+                    JOptionPane.showMessageDialog(null, "Se ha creado un nuevo usuario");
 
                 } else {//MODIFICAR
 
-                    PreparedStatement pps = Conexion.getConnection().prepareStatement("UPDATE cliente"
-                            + "   SET cedula_cliente=?, rif=?, nombre_cliente=?, apellido_cliente=?, "
-                            + "       domicilio_cliente=?, email_cliente=?, tlf_cliente=? "
-                            + " WHERE serial = ?");
+                    PreparedStatement pps = Conexion.getConnection().prepareStatement("UPDATE usuario"
+                            + "   SET nombre_usuario=?, claveacceso=?, descripcion_usuario=?, cedula_usuario=?"
+                            + " WHERE id_usuario = ?");
 
-                    pps.setObject(1,tfCedula.getText());
-                    pps.setString(2, tfRif.getText().equals("") ? null : tfRif.getText());
+                     pps.setString(1, tfLogin.getText());
+                    pps.setString(2, tfClave.getText());
                     pps.setString(3, tfNombre.getText());
-                    pps.setString(4, tfApellido.getText());
-                    pps.setString(5, tfDireccion.getText());
-                    pps.setString(6, tfEmial.getText());
-                    pps.setInt(7, tfTelefono.getText().equals("") ? null : Integer.parseInt(tfTelefono.getText()));
-                    pps.setObject(8, rsClientesBuscados.getInt("serial"));
+                    pps.setString(4, tfCedula.getText());
+                    pps.setObject(5, rsUsuarioBuscados.getInt("id_usuario"));
                     pps.executeUpdate();
 
                     JOptionPane.showMessageDialog(null, "Se ha modificado el registro");
@@ -438,7 +319,7 @@ public class cliente extends javax.swing.JFrame {
                 enableComponents(panelDatos, false);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Ha ocurido un error en la insercion de los datos");
-                Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -448,19 +329,17 @@ public class cliente extends javax.swing.JFrame {
         //rsClientesBuscados
        
 
-            String sql = "SELECT cedula_cliente, rif, nombre_cliente, apellido_cliente, domicilio_cliente, "
-                    + "       id_tcliente, email_cliente, tlf_cliente, serial"
-                    + "  FROM cliente WHERE cliente.nombre_cliente like '%" + tfClienteBuscar.getText() + "%'";
+            String sql = "SELECT nombre_usuario, claveacceso, descripcion_usuario, cedula_usuario, id_usuario"
+                    + "  FROM usuario WHERE usuario.nombre_usuario like '%" + tfClienteBuscar.getText() + "%'";
 
             try {
                 Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                rsClientesBuscados = st.executeQuery(sql);
-                modeloListaClientes = new DefaultListModel();
-                while (rsClientesBuscados.next()) {
-                    modeloListaClientes.addElement(rsClientesBuscados.getObject("nombre_cliente")
-                            + " " + rsClientesBuscados.getObject("apellido_cliente"));
+                rsUsuarioBuscados = st.executeQuery(sql);
+                modeloListaUsuario = new DefaultListModel();
+                while (rsUsuarioBuscados.next()) {
+                    modeloListaUsuario.addElement(rsUsuarioBuscados.getObject("nombre_usuario"));
                 }
-                listaClientes.setModel(modeloListaClientes);
+                listaUsuario.setModel(modeloListaUsuario);
             } catch (SQLException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -471,68 +350,56 @@ public class cliente extends javax.swing.JFrame {
     private void btModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btModificarMouseClicked
 
         try {
-            if (rsClientesBuscados == null || listaClientes.getSelectedIndex() == -1) {
+            if (rsUsuarioBuscados == null || listaUsuario.getSelectedIndex() == -1) {
                 return;
             }
 
             enableComponents(panelDatos, true);
             btLimpiarMouseClicked(null);
             btAgregar.setText("Modificar");
-
-            if (rsClientesBuscados.getInt("id_tcliente") == 1) {//empresa
-                tfCedula.setEnabled(false);
-            } else {//cliente
-                tfRif.setEnabled(false);
-            }
-
-            tfTipoCliente.setEnabled(false);
-            tfTipoCliente.setText(rsClientesBuscados.getInt("id_tcliente") == 1 ? "Empresa" : "Cliente");
-            tfCedula.setText(rsClientesBuscados.getString("cedula_cliente"));
-            tfRif.setText(rsClientesBuscados.getString("rif"));
-            tfNombre.setText(rsClientesBuscados.getString("nombre_cliente"));
-            tfApellido.setText(rsClientesBuscados.getString("apellido_cliente"));
-            tfDireccion.setText(rsClientesBuscados.getString("domicilio_cliente"));
-            tfEmial.setText(rsClientesBuscados.getString("email_cliente"));
-            tfTelefono.setText(rsClientesBuscados.getString("tlf_cliente"));
+            tfLogin.setText(rsUsuarioBuscados.getString("nombre_usuario"));
+            tfCedula.setText(rsUsuarioBuscados.getString("cedula_usuario"));
+            tfNombre.setText(rsUsuarioBuscados.getString("descripcion_usuario"));
+            tfClave.setText(rsUsuarioBuscados.getString("claveacceso"));
 
         } catch (SQLException ex) {
-            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btModificarMouseClicked
 
     private void btEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEliminarMouseClicked
         //rsClientesBuscados
-        if (rsClientesBuscados == null || listaClientes.getSelectedIndex() == -1) {
+        if (rsUsuarioBuscados == null || listaUsuario.getSelectedIndex() == -1) {
             return;
         }
 
         try {
             PreparedStatement pps = Conexion.getConnection().prepareStatement(""
-                    + "DELETE FROM cliente WHERE serial = ?");
+                    + "DELETE FROM usuario WHERE id_usuario = ?");
 
-            pps.setObject(1, rsClientesBuscados.getInt("serial"));
+            pps.setObject(1, rsUsuarioBuscados.getInt("id_usuario"));
             pps.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Se ha eliminado el registro");
             btBuscarMouseClicked(null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Ha ocurido un error en la eliminacion de los datos");
-            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btEliminarMouseClicked
 
-    private void listaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaClientesMouseClicked
+    private void listaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUsuarioMouseClicked
         try {
-            rsClientesBuscados.beforeFirst();
-            for (int i = 0; i <= listaClientes.getSelectedIndex(); i++) {
-                rsClientesBuscados.next();
+            rsUsuarioBuscados.beforeFirst();
+            for (int i = 0; i <= listaUsuario.getSelectedIndex(); i++) {
+                rsUsuarioBuscados.next();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_listaClientesMouseClicked
+    }//GEN-LAST:event_listaUsuarioMouseClicked
 
     private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
         // TODO add your handling code here:
@@ -559,21 +426,23 @@ public class cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cliente().setVisible(true);
+                new Usuario().setVisible(true);
             }
         });
     }
@@ -586,32 +455,20 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JButton btModificar;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList listaClientes;
+    private javax.swing.JList listaUsuario;
     private javax.swing.JPanel panelDatos;
-    private javax.swing.JTextField tfApellido;
     private javax.swing.JTextField tfCedula;
+    private javax.swing.JTextField tfClave;
     private javax.swing.JTextField tfClienteBuscar;
-    private javax.swing.JTextField tfDireccion;
-    private javax.swing.JTextField tfEmial;
+    private javax.swing.JTextField tfLogin;
     private javax.swing.JTextField tfNombre;
-    private javax.swing.JTextField tfRif;
-    private javax.swing.JTextField tfTelefono;
-    private javax.swing.JTextField tfTipoCliente;
     // End of variables declaration//GEN-END:variables
 }

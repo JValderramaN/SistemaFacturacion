@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
     private ResultSet rs;
     private ResultSet rs2;
     String sql;
-
+    public static UsuarioLogeado usr ;
     /**
      * Creates new form Login
      */
@@ -53,6 +53,7 @@ public class Login extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +115,14 @@ public class Login extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/123.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 310, 190));
 
+        jButton1.setText("crear usuario");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, -1, -1));
+
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/seguridad2.png"))); // NOI18N
         jLabel1.setText("Clave");
@@ -131,7 +140,9 @@ boolean Comprobaracceso(String valor, String valor2) {
             sql = "SELECT "
                     + "  usr.id_usuario, "
                     + "  usr.nombre_usuario, "
-                    + "  usr.claveacceso"
+                    + "  usr.claveacceso, "
+                    + "  descripcion_usuario, "
+                    + "  cedula_usuario"
                     + " FROM "
                     + "  public.usuario usr"
                     + " WHERE usr.nombre_usuario = '" + valor + "' AND usr.claveacceso='" + valor2 + "'";
@@ -140,12 +151,20 @@ boolean Comprobaracceso(String valor, String valor2) {
                 Statement st = Conexion.getConnection().createStatement();
                 rs = st.executeQuery(sql);
                 if (rs.next()) {
+                    usr  = new  UsuarioLogeado(
+                                rs.getString("nombre_usuario"),
+                                rs.getString("descripcion_usuario"),
+                                rs.getString("cedula_usuario"), 
+                                rs.getString("claveacceso"),
+                                rs.getInt("id_usuario")
+                    );
                     if (rs.next()) {
                         JOptionPane.showMessageDialog(null, "Error de autentificacion. Existe mas de un usuario"
                                 + " con esas credenciales");
                         return false;
                     } else {
                         JOptionPane.showMessageDialog(null, "Bienvenido");
+                        
                         return true;
                     }
                 } else {
@@ -177,6 +196,69 @@ boolean Comprobaracceso(String valor, String valor2) {
 
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        dispose();
+        new Usuario().setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    class UsuarioLogeado {
+        private String nombre;
+        private String descripcion;
+        private String cedula;
+        private String clave;
+        private int ID;
+
+        public UsuarioLogeado(String nombre, String descripcion, String cedula, String clave,int ID) {
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.cedula = cedula;
+            this.clave = clave;
+            this.ID = ID;
+        }
+
+        public int getID() {
+            return ID;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public String getDescripcion() {
+            return descripcion;
+        }
+
+        public void setDescripcion(String descripcion) {
+            this.descripcion = descripcion;
+        }
+
+        public String getCedula() {
+            return cedula;
+        }
+
+        public void setCedula(String cedula) {
+            this.cedula = cedula;
+        }
+
+        public String getClave() {
+            return clave;
+        }
+
+        public void setClave(String clave) {
+            this.clave = clave;
+        }
+        
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -218,6 +300,7 @@ boolean Comprobaracceso(String valor, String valor2) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
