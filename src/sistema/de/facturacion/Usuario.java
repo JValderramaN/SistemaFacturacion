@@ -154,7 +154,7 @@ public class Usuario extends javax.swing.JFrame {
 
         getContentPane().add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 350, 240));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA (LOGO)_1 pequeño.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA(LOGO)_1 pequeño.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 220, 80));
 
         tfClienteBuscar.addActionListener(new java.awt.event.ActionListener() {

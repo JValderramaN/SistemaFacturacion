@@ -222,7 +222,7 @@ public class cliente extends javax.swing.JFrame {
         });
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 130));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA (LOGO)_1 pequeño.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA(LOGO)_1 pequeño.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, 220, 80));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

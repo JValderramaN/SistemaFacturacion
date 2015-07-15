@@ -66,7 +66,6 @@ public class Venta extends javax.swing.JFrame {
         jBImprimir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabledeventa = new javax.swing.JTable();
-        jLabel16 = new javax.swing.JLabel();
         btAgregarProducto = new javax.swing.JButton();
         crearVenta = new javax.swing.JButton();
         jBuscar = new javax.swing.JButton();
@@ -75,6 +74,7 @@ public class Venta extends javax.swing.JFrame {
         lbCantidadTotalProducto = new javax.swing.JLabel();
         spCantidad = new javax.swing.JSpinner();
         lbNumeroVenta = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -181,9 +181,6 @@ public class Venta extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 410, 180));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA (LOGO)_1 pequeño.png"))); // NOI18N
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 410, 220, 80));
-
         btAgregarProducto.setText("Agregar");
         btAgregarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -231,6 +228,9 @@ public class Venta extends javax.swing.JFrame {
         lbNumeroVenta.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
         getContentPane().add(lbNumeroVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 170, 20));
 
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA(LOGO)_1 pequeño.png"))); // NOI18N
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 410, 220, 80));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -261,7 +261,7 @@ public class Venta extends javax.swing.JFrame {
         tfSubTotal.setText("");
         tfIva.setText("");
         tfTotal.setText("");
-        for (int i = 0; i < modeloTabla.getColumnCount(); i++) {
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
             modeloTabla.removeRow(0);
         }
 
