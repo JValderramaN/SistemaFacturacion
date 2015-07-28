@@ -12,8 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
+/**pull es actualizar tu local por el que esta en github... puedes
+ * combinarlos con merge y rebase. push es subir de local a github para que otros puedan hacer pull
+ *correlo y ve si tiene lo ultimo. no vi, funciono? no aparece run. wtf. dejame buscar en google... primera vez que me sale eso
  * @author Julio
  */
 public class Login extends javax.swing.JFrame {
