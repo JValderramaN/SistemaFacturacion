@@ -38,7 +38,7 @@ public class Usuario extends javax.swing.JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                new Login().setVisible(true);
+                new menu().setVisible(true);
             }
         };
         this.addWindowListener(exitListener);
@@ -252,7 +252,7 @@ public class Usuario extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 
-        Login principal = new Login();
+        menu principal = new menu();
         dispose();
 
         principal.setLocationRelativeTo(null);

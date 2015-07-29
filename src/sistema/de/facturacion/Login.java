@@ -5,6 +5,7 @@
  */
 package sistema.de.facturacion;
 
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,9 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**pull es actualizar tu local por el que esta en github... puedes
- * combinarlos con merge y rebase. push es subir de local a github para que otros puedan hacer pull
- *correlo y ve si tiene lo ultimo. no vi, funciono? no aparece run. wtf. dejame buscar en google... primera vez que me sale eso
+/**
  * @author Julio
  */
 public class Login extends javax.swing.JFrame {
@@ -30,6 +29,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
 
         Conexion.createConexion();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -51,10 +51,9 @@ public class Login extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +62,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/llave3.png"))); // NOI18N
         jLabel10.setToolTipText("Haga Clic  Para Continuar");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel10MouseClicked(evt);
@@ -110,19 +109,17 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Usuario");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 90, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 250, 30));
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 250, 30));
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, 250, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/123.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 310, 190));
-
-        jButton1.setText("crear usuario");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 400, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/seguridad2.png"))); // NOI18N
@@ -197,10 +194,11 @@ boolean Comprobaracceso(String valor, String valor2) {
 
     }//GEN-LAST:event_jLabel10MouseClicked
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        dispose();
-        new Usuario().setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jLabel10MouseClicked(null);
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
 
     class UsuarioLogeado {
         private String nombre;
@@ -301,7 +299,6 @@ boolean Comprobaracceso(String valor, String valor2) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -315,6 +312,6 @@ boolean Comprobaracceso(String valor, String valor2) {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

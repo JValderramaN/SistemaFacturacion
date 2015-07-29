@@ -18,7 +18,7 @@ public class Conexion {
  
     static String bd = "ventas";   
     static String login = "postgres";   
-    static String password = "12345";   
+    static String password = "admin";   
     static String url = "jdbc:postgresql://localhost:5432/" ;   
     static private Connection conn = null; 
      

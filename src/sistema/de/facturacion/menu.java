@@ -57,6 +57,7 @@ public class menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -71,7 +72,7 @@ public class menu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/anigif.gif"))); // NOI18N
         jLabel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
         getContentPane().add(lbUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 720, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
@@ -80,14 +81,14 @@ public class menu extends javax.swing.JFrame {
                 jLabel1MouseMoved(evt);
             }
         });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 460));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 460));
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(402, 45));
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/aTRAS.png"))); // NOI18N
         jMenu5.setText("          Atras         ");
         jMenu5.setToolTipText("Atras");
-        jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu5MouseClicked(evt);
@@ -95,10 +96,19 @@ public class menu extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu5);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/editUser.png"))); // NOI18N
+        jMenu1.setText("Usuario");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/agenda.png"))); // NOI18N
         jMenu2.setText("         Orden de Compra         ");
         jMenu2.setToolTipText("Orden de Compra");
-        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jMenu2MouseDragged(evt);
@@ -114,7 +124,7 @@ public class menu extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/prducto.png"))); // NOI18N
         jMenu3.setText("          Producto         ");
         jMenu3.setToolTipText("Producto");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu3MouseClicked(evt);
@@ -125,7 +135,7 @@ public class menu extends javax.swing.JFrame {
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/clientea.png"))); // NOI18N
         jMenu4.setText("         Cliente       ");
         jMenu4.setToolTipText("Agregar Modificar Eliminar Cliente");
-        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu4MouseClicked(evt);
@@ -198,6 +208,11 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenu4ActionPerformed
 
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        dispose();
+        new Usuario().setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -238,6 +253,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

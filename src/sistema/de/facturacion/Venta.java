@@ -5,6 +5,9 @@
  */
 package sistema.de.facturacion;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +37,15 @@ public class Venta extends javax.swing.JFrame {
         initComponents();
         modeloTabla = (DefaultTableModel) jTabledeventa.getModel();
         configure();
+        this.setLocationRelativeTo(null);
+        WindowListener exitListener = new WindowAdapter() {
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                new menu().setVisible(true);
+            }
+        };
+        this.addWindowListener(exitListener);
     }
 
     /**
@@ -75,9 +87,10 @@ public class Venta extends javax.swing.JFrame {
         spCantidad = new javax.swing.JSpinner();
         lbNumeroVenta = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        cbTipoId = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -133,7 +146,7 @@ public class Venta extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 100, 30));
-        getContentPane().add(tfProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 140, 30));
+        getContentPane().add(tfProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 150, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("PRODUCTO");
@@ -144,7 +157,7 @@ public class Venta extends javax.swing.JFrame {
                 jTcedulaorifActionPerformed(evt);
             }
         });
-        getContentPane().add(jTcedulaorif, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 140, 30));
+        getContentPane().add(jTcedulaorif, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 90, 30));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("CEDULA O RIF");
@@ -262,6 +275,9 @@ public class Venta extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/SIGCA(LOGO)_1 pequeño.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 410, 220, 80));
 
+        cbTipoId.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "J", "G", "V", "E" }));
+        getContentPane().add(cbTipoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 60, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -324,7 +340,7 @@ public class Venta extends javax.swing.JFrame {
 
             String sql = "SELECT nombre_cliente, apellido_cliente, domicilio_cliente, id_tcliente, "
                     + "       email_cliente, tlf_cliente, serial, cedula_rif "
-                    + "  FROM cliente WHERE cliente.cedula_rif = '" + jTcedulaorif.getText() /*+ "' OR "
+                    + "  FROM cliente WHERE cliente.cedula_rif = '" + cbTipoId.getSelectedItem().toString()+jTcedulaorif.getText() /*+ "' OR "
                     + "cliente.rif = '" + jTcedulaorif.getText()*/ + "'";
 
             try {
@@ -513,6 +529,7 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JButton btAgregarProducto;
     private javax.swing.JButton btBuscarProducto;
     private javax.swing.JButton btEliminarRenglon;
+    private javax.swing.JComboBox cbTipoId;
     private javax.swing.JButton crearVenta;
     private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBModificar;
