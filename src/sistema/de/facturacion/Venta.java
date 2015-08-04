@@ -98,7 +98,6 @@ public class Venta extends javax.swing.JFrame {
         jBVer = new javax.swing.JButton();
         jBNueva = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        jBImprimir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabledeventa = new javax.swing.JTable();
         btAgregarProducto = new javax.swing.JButton();
@@ -191,8 +190,13 @@ public class Venta extends javax.swing.JFrame {
         jLabel4.setText("NUMERO DE VENTA");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, -1, -1));
 
-        jBVer.setText("Ver");
-        getContentPane().add(jBVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 90, 40));
+        jBVer.setText("Ventas Previas");
+        jBVer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBVerMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jBVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 110, 40));
 
         jBNueva.setText("Nueva");
         jBNueva.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -205,7 +209,7 @@ public class Venta extends javax.swing.JFrame {
                 jBNuevaActionPerformed(evt);
             }
         });
-        getContentPane().add(jBNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 90, 40));
+        getContentPane().add(jBNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 110, 40));
 
         jBSalir.setText("Atras");
         jBSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,10 +222,7 @@ public class Venta extends javax.swing.JFrame {
                 jBSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jBSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 220, 90, 40));
-
-        jBImprimir.setText("Imprimir");
-        getContentPane().add(jBImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 70, 90, 40));
+        getContentPane().add(jBSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 220, 110, 40));
 
         jTabledeventa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -484,7 +485,7 @@ public class Venta extends javax.swing.JFrame {
     }//GEN-LAST:event_btEliminarRenglonMouseClicked
 
     private void crearVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearVentaMouseClicked
-        
+
     }//GEN-LAST:event_crearVentaMouseClicked
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -526,7 +527,7 @@ public class Venta extends javax.swing.JFrame {
                 if (rsProductoBuscado.getString("nombre_producto").toLowerCase().contains(tfProducto.getText().toLowerCase())
                         || rsProductoBuscado.getString("id_producto").contains(tfProducto.getText())) {
                     listadoProductos.setSelectedIndex(pos);
-                     ((SpinnerNumberModel)spCantidad.getModel()).setMaximum(rsProductoBuscado.getInt("cantidad"));
+                    ((SpinnerNumberModel) spCantidad.getModel()).setMaximum(rsProductoBuscado.getInt("cantidad"));
                     spCantidad.setValue(rsProductoBuscado.getInt("cantidad"));
                     btAgregarProducto.setEnabled(true);
                     break;
@@ -552,7 +553,7 @@ public class Venta extends javax.swing.JFrame {
             }
 
             tfProducto.setText(rsProductoBuscado.getString("nombre_producto"));
-            ((SpinnerNumberModel)spCantidad.getModel()).setMaximum(rsProductoBuscado.getInt("cantidad"));
+            ((SpinnerNumberModel) spCantidad.getModel()).setMaximum(rsProductoBuscado.getInt("cantidad"));
             spCantidad.setValue(rsProductoBuscado.getInt("cantidad"));
             btAgregarProducto.setEnabled(true);
         } catch (SQLException ex) {
@@ -575,6 +576,11 @@ public class Venta extends javax.swing.JFrame {
     private void btEliminarRenglonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEliminarRenglonMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btEliminarRenglonMouseEntered
+
+    private void jBVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBVerMouseClicked
+        dispose();
+        new ReporteVenta().setVisible(true);
+    }//GEN-LAST:event_jBVerMouseClicked
 
     private void updateTotals() {
         float subTOtal = 0;
@@ -639,7 +645,6 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JButton btEliminarRenglon;
     private javax.swing.JComboBox cbTipoId;
     private javax.swing.JButton crearVenta;
-    private javax.swing.JButton jBImprimir;
     private javax.swing.JButton jBNueva;
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jBVer;
