@@ -149,6 +149,7 @@ public class ReporteVenta extends javax.swing.JFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 50, -1));
 
         jBSalir.setText("Atras");
+        jBSalir.setMinimumSize(new java.awt.Dimension(134, 29));
         jBSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jBSalirMouseClicked(evt);
@@ -159,7 +160,7 @@ public class ReporteVenta extends javax.swing.JFrame {
                 jBSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jBSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 90, 40));
+        getContentPane().add(jBSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 130, 40));
 
         tablaFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

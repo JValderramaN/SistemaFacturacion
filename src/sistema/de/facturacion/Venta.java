@@ -162,11 +162,11 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, -1));
 
         tfProducto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfProductoKeyTyped(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfProductoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfProductoKeyTyped(evt);
             }
         });
         getContentPane().add(tfProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 200, 30));
@@ -196,7 +196,7 @@ public class Venta extends javax.swing.JFrame {
                 jBVerMouseClicked(evt);
             }
         });
-        getContentPane().add(jBVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 110, 40));
+        getContentPane().add(jBVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, -1, 40));
 
         jBNueva.setText("Nueva");
         jBNueva.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,7 +209,7 @@ public class Venta extends javax.swing.JFrame {
                 jBNuevaActionPerformed(evt);
             }
         });
-        getContentPane().add(jBNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 110, 40));
+        getContentPane().add(jBNueva, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 120, 130, 40));
 
         jBSalir.setText("Atras");
         jBSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,7 +222,7 @@ public class Venta extends javax.swing.JFrame {
                 jBSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jBSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 220, 110, 40));
+        getContentPane().add(jBSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 220, 130, 40));
 
         jTabledeventa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
