@@ -365,8 +365,8 @@ public class Venta extends javax.swing.JFrame {
                 pps2.setInt(3, (int) modeloTabla.getValueAt(i, 0));
                 pps2.setLong(4, generatedKeys.getLong(1));
                 pps2.executeUpdate();
-                configure();
             }
+            configure();
         } catch (SQLException ex) {
             Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -387,7 +387,8 @@ public class Venta extends javax.swing.JFrame {
         tfSubTotal.setText("");
         tfIva.setText("");
         tfTotal.setText("");
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        int cant=modeloTabla.getRowCount();
+        for (int i = 0; i <cant ; i++) {
             modeloTabla.removeRow(0);
         }
 

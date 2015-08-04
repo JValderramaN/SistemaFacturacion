@@ -30,11 +30,11 @@ public class ReporteVenta extends javax.swing.JFrame {
      */
     private ResultSet rsVenta;
     private DefaultTableModel modeloTabla;
+    private DefaultListModel modeloListaVenta;
 
     public ReporteVenta() {
         initComponents();
         tablaFactura.getTableHeader().setReorderingAllowed(false);
-
         modeloTabla = (DefaultTableModel) tablaFactura.getModel();
         this.setLocationRelativeTo(null);
         WindowListener exitListener = new WindowAdapter() {
@@ -46,26 +46,25 @@ public class ReporteVenta extends javax.swing.JFrame {
         };
         this.addWindowListener(exitListener);
 
-        /* String sql = "SELECT nombre_producto, descripcion_producto, id_tproducto, precio_producto, cantidad, id_producto"
-         + "  FROM producto WHERE producto.nombre_producto like '%" + tfProducto.getText() + "%'"
-         + " OR producto.descripcion_producto like '%" + tfProducto.getText() + "%' OR CAST(producto.id_producto AS text) like '%"
-         + tfProducto.getText() + "%'";*/
-       /* String sql = "SELECT nombre_producto, descripcion_producto, id_tproducto, precio_producto, "
-                + " id_producto, cantidad"
-                + " FROM producto WHERE producto.cantidad > 0 ORDER BY producto.id_producto";
+        String sql = "SELECT venta.fecha_venta,venta.id_venta, venta.total_venta,  "
+                + "cliente.cedula_rif, cliente.nombre_cliente,  cliente.apellido_cliente FROM public.venta "
+                + "INNER JOIN public.cliente ON venta.id_cliente=cliente.serial "
+                + " GROUP BY venta.id_venta,cliente.cedula_rif,cliente.nombre_cliente,cliente.apellido_cliente "
+                + " ORDER BY venta.id_venta";
 
         try {
-            Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rsProductoBuscado = st.executeQuery(sql);
-            modeloListaProducto = new DefaultListModel();
-            while (rsProductoBuscado.next()) {
-                modeloListaProducto.addElement(rsProductoBuscado.getObject("nombre_producto") + "  ID:"
-                        + rsProductoBuscado.getObject("id_producto"));
+            Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsVenta = st.executeQuery(sql);
+            modeloListaVenta = new DefaultListModel();
+            while (rsVenta.next()) {
+                modeloListaVenta.addElement("N° " + rsVenta.getObject("id_venta") + " TOTAL: "
+                        + rsVenta.getObject("total_venta") + " Cliente: " + rsVenta.getObject("nombre_cliente") + " "
+                        + rsVenta.getObject("apellido_cliente"));
             }
-            listadoProductos.setModel(modeloListaProducto);
+            listaFacturas.setModel(modeloListaVenta);
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
 
     }
 
@@ -98,6 +97,9 @@ public class ReporteVenta extends javax.swing.JFrame {
         lbNumeroVenta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaFacturas = new javax.swing.JList();
+        tfBusqueda = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -199,7 +201,7 @@ public class ReporteVenta extends javax.swing.JFrame {
 
         lbNombre.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         lbNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 150, 20));
+        getContentPane().add(lbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 360, 20));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel3.setText("CEDULA O RIF");
@@ -213,6 +215,7 @@ public class ReporteVenta extends javax.swing.JFrame {
         lbNumeroVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lbNumeroVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 150, 20));
 
+        listaFacturas.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
         listaFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listaFacturasMouseClicked(evt);
@@ -220,7 +223,21 @@ public class ReporteVenta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaFacturas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, 250, 270));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 170, 250, 230));
+
+        tfBusqueda.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfBusquedaKeyReleased(evt);
+            }
+        });
+        getContentPane().add(tfBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 130, 30));
+
+        jLabel5.setText(" o nombre de Cliente");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 100, 20));
+
+        jLabel6.setText("Busqueda por N°");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 90, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -238,7 +255,6 @@ public class ReporteVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseMoved
 
-   
 
     private void tfIvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIvaActionPerformed
         // TODO add your handling code here:
@@ -258,9 +274,74 @@ public class ReporteVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_tfTotalActionPerformed
 
     private void listaFacturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaFacturasMouseClicked
-        // TODO add your handling code here:
+        try {
+
+            if (rsVenta == null || listaFacturas.getSelectedIndex() == -1) {
+                return;
+            }
+
+            rsVenta.absolute(listaFacturas.getSelectedIndex() + 1);
+
+            lbNumeroVenta.setText(rsVenta.getString("id_venta"));
+            lbNombre.setText(rsVenta.getString("nombre_cliente") + " " + rsVenta.getString("apellido_cliente"));
+            lbCedulaRif.setText(rsVenta.getString("cedula_rif"));
+            lbfecha.setText(rsVenta.getDate("fecha_venta").toString());
+
+            String sql = "SELECT venta.id_venta,  detalle_venta.cantidad,detalle_venta.importe, "
+                    + "producto.nombre_producto,producto.descripcion_producto,  producto.id_producto, producto.precio_producto "
+                    + "FROM public.venta "
+                    + "INNER JOIN public.detalle_venta ON venta.id_venta=detalle_venta.id_venta "
+                    + "INNER JOIN public.producto ON detalle_venta.id_producto=producto.id_producto "
+                    + "WHERE venta.id_venta =" + rsVenta.getInt("id_venta")
+                    + "ORDER BY id_venta ";
+
+            Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery(sql);
+
+            int cant = modeloTabla.getRowCount();
+            for (int i = 0; i < cant; i++) {
+                modeloTabla.removeRow(0);
+            }
+
+            float subTotal = 0f;
+
+            while (rs.next()) {
+                subTotal += rs.getFloat("precio_producto") * rs.getInt("cantidad");
+                modeloTabla.addRow(new Object[]{
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("descripcion_producto"),
+                    rs.getInt("cantidad"),
+                    rs.getFloat("precio_producto"),
+                    subTotal
+                });
+            }
+
+            tfSubTotal.setText(subTotal + "");
+            tfIva.setText((subTotal * 0.12) + "");
+            tfTotal.setText(rsVenta.getFloat("total_venta") + "");
+        } catch (SQLException ex) {
+            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_listaFacturasMouseClicked
 
+    private void tfBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBusquedaKeyReleased
+        try {
+            rsVenta.beforeFirst();
+            int pos = 0;
+            while (rsVenta.next()) {
+                if (rsVenta.getString("nombre_cliente").toLowerCase().contains(tfBusqueda.getText().toLowerCase())
+                        || rsVenta.getString("id_venta").contains(tfBusqueda.getText())) {
+                    listaFacturas.setSelectedIndex(pos);
+                    break;
+                }
+                pos++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_tfBusquedaKeyReleased
 
     /**
      * @param args the command line arguments
@@ -326,6 +407,8 @@ public class ReporteVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -336,6 +419,7 @@ public class ReporteVenta extends javax.swing.JFrame {
     private javax.swing.JLabel lbfecha;
     private javax.swing.JList listaFacturas;
     private javax.swing.JTable tablaFactura;
+    private javax.swing.JTextField tfBusqueda;
     private javax.swing.JTextField tfIva;
     private javax.swing.JTextField tfSubTotal;
     private javax.swing.JTextField tfTotal;
