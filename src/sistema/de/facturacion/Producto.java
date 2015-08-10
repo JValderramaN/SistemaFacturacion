@@ -91,6 +91,7 @@ public class Producto extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -272,6 +273,10 @@ public class Producto extends javax.swing.JFrame {
         jLabel21.setToolTipText("");
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 220, 70));
 
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setText("Lista de Productos y Servicios");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 190, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -377,6 +382,7 @@ public class Producto extends javax.swing.JFrame {
         tfTipoproducto.setText("Producto");
         tfTipoproducto.setEnabled(false);
         btAgregar.setText("Agregar");
+        jLabel18.setText("Horas de trabajo");
     }//GEN-LAST:event_lbProductoMouseClicked
 
     private void lbTrabajoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTrabajoMouseClicked
@@ -384,6 +390,7 @@ public class Producto extends javax.swing.JFrame {
         tfTipoproducto.setText("TRABAJO");
         tfTipoproducto.setEnabled(false);
         btAgregar.setText("Agregar");
+        jLabel18.setText("Cantidad");
     }//GEN-LAST:event_lbTrabajoMouseClicked
 
     private void btLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btLimpiarMouseClicked
@@ -438,7 +445,7 @@ public class Producto extends javax.swing.JFrame {
             tfDescripcion.setText(rsProductosBuscados.getString("descripcion_producto"));
             tfPrecio.setText(rsProductosBuscados.getString("precio_producto"));
             spCantidad.setValue(rsProductosBuscados.getInt("cantidad"));
-            
+            jLabel18.setText(rsProductosBuscados.getInt("id_tproducto") == 1 ? "Horas de Trabajo" : "Cantidad");
             
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -529,6 +536,7 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

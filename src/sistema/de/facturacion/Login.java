@@ -41,7 +41,6 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel10 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -54,21 +53,12 @@ public class Login extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
+        btEntrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/llave3.png"))); // NOI18N
-        jLabel10.setToolTipText("Haga Clic  Para Continuar");
-        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
-            }
-        });
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, 110, 80));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo43.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 130));
@@ -120,6 +110,14 @@ public class Login extends javax.swing.JFrame {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/123.png"))); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 310, 190));
+
+        btEntrar.setText("Entrar");
+        btEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btEntrarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, 120, 50));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/seguridad2.png"))); // NOI18N
@@ -179,7 +177,13 @@ boolean Comprobaracceso(String valor, String valor2) {
 
         
     }
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btEntrarMouseClicked(null);
+        }
+    }//GEN-LAST:event_jTextField2KeyReleased
+
+    private void btEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEntrarMouseClicked
         if (!Comprobaracceso(jTextField1.getText(), jTextField2.getText())) {
             return;
         }
@@ -191,14 +195,7 @@ boolean Comprobaracceso(String valor, String valor2) {
         Entrar.setLocationRelativeTo(null);//centro la pantalla del vieo
         Entrar.setVisible(true);//ago visible la pantalla del video
 
-
-    }//GEN-LAST:event_jLabel10MouseClicked
-
-    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER){
-            jLabel10MouseClicked(null);
-        }
-    }//GEN-LAST:event_jTextField2KeyReleased
+    }//GEN-LAST:event_btEntrarMouseClicked
 
     class UsuarioLogeado {
         private String nombre;
@@ -299,8 +296,8 @@ boolean Comprobaracceso(String valor, String valor2) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEntrar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

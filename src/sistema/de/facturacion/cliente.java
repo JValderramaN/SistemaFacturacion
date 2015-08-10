@@ -7,6 +7,7 @@ package sistema.de.facturacion;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -14,10 +15,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.text.Caret;
+import javax.swing.text.NumberFormatter;
 import sistema.de.facturacion.menu;
 
 /**
@@ -42,8 +50,8 @@ public class cliente extends javax.swing.JFrame {
             }
         };
         this.addWindowListener(exitListener);
-        
-         btBuscarMouseClicked(null);
+
+        btBuscarMouseClicked(null);
     }
 
     /**
@@ -60,7 +68,6 @@ public class cliente extends javax.swing.JFrame {
         panelDatos = new javax.swing.JPanel();
         btAgregar = new javax.swing.JButton();
         btLimpiar = new javax.swing.JButton();
-        tfTelefono = new javax.swing.JTextField();
         tfEmial = new javax.swing.JTextField();
         tfDireccion = new javax.swing.JTextField();
         tfApellido = new javax.swing.JTextField();
@@ -76,6 +83,7 @@ public class cliente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cbTipoId = new javax.swing.JComboBox();
+        tfTelefono = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -91,6 +99,7 @@ public class cliente extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -130,7 +139,12 @@ public class cliente extends javax.swing.JFrame {
             }
         });
         panelDatos.add(btLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 110, 50));
-        panelDatos.add(tfTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 200, 30));
+
+        tfEmial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfEmialKeyPressed(evt);
+            }
+        });
         panelDatos.add(tfEmial, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 200, 30));
         panelDatos.add(tfDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 200, 30));
 
@@ -151,6 +165,14 @@ public class cliente extends javax.swing.JFrame {
         tfCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCedulaActionPerformed(evt);
+            }
+        });
+        tfCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfCedulaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCedulaKeyTyped(evt);
             }
         });
         panelDatos.add(tfCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 140, 30));
@@ -198,6 +220,13 @@ public class cliente extends javax.swing.JFrame {
 
         cbTipoId.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "J", "G", "V", "E" }));
         panelDatos.add(cbTipoId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 60, 30));
+
+        try {
+            tfTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        panelDatos.add(tfTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 200, 30));
 
         getContentPane().add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 350, 350));
 
@@ -302,6 +331,10 @@ public class cliente extends javax.swing.JFrame {
         jLabel20.setToolTipText("");
         getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 220, 70));
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("Lista de Clientes");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, 110, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -317,10 +350,6 @@ public class cliente extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseMoved
-
-    private void tfCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfCedulaActionPerformed
 
     private void tfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNombreActionPerformed
         // TODO add your handling code here:
@@ -390,19 +419,37 @@ public class cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimpiarMouseClicked
 
     private void btAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgregarMouseClicked
-        if (tfCedula.getText().equals("") || tfTipoCliente.getText().equals("") ||  tfNombre.getText().equals("") ||  tfDireccion.getText().equals("") || tfEmial.getText().equals("") ||  tfTelefono.getText().equals("")) {
+        if (tfCedula.getText().equals("") || tfTipoCliente.getText().equals("") || tfNombre.getText().equals("") || tfDireccion.getText().equals("") || tfEmial.getText().equals("") || tfTelefono.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe completar los datos");
             return;
         } else {
             try {
-                 if(!tfCedula.isEnabled() && tfApellido.getText().equals("") ){
-                        JOptionPane.showMessageDialog(null, "Debe completar los datos");
-                        return;
-                    }
-                 
+
+                String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+
+                if (!tfCedula.isEnabled() && tfApellido.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Debe completar los datos");
+                    return;
+                }
+
+                /* Pattern pattern = Pattern.compile(regex);
+                 Matcher matcher = pattern.matcher(tfEmial.getText());
+                 if (!matcher.matches()) {
+                 JOptionPane.showMessageDialog(null, "Ingresar un email correctamente");
+                 return;
+                 }*/
+                String sqlvalidar = "SELECT cedula_rif FROM cliente WHERE cliente.cedula_rif = '"
+                        + cbTipoId.getSelectedItem().toString() + tfCedula.getText() + "'";
+
+                Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet validar = st.executeQuery(sqlvalidar);
+                if (validar.next()) {
+                    JOptionPane.showMessageDialog(null, "Ésta Cédula o RIF ha sido registrada anteriormente, intente una diferente.");
+                    return;
+                }
+
                 if (btAgregar.getText().equals("Agregar")) {
 
-                    
                     PreparedStatement pps = Conexion.getConnection().prepareStatement(""
                             + "INSERT INTO cliente("
                             + " cedula_rif, nombre_cliente, apellido_cliente, domicilio_cliente, "
@@ -429,7 +476,7 @@ public class cliente extends javax.swing.JFrame {
                             + "       domicilio_cliente=?, email_cliente=?, tlf_cliente=? "
                             + " WHERE serial = ?");
 
-                    pps.setObject(1,cbTipoId.getSelectedItem().toString() + tfCedula.getText());
+                    pps.setObject(1, cbTipoId.getSelectedItem().toString() + tfCedula.getText());
                     pps.setString(2, tfNombre.getText());
                     pps.setString(3, tfApellido.getText());
                     pps.setString(4, tfDireccion.getText());
@@ -439,7 +486,7 @@ public class cliente extends javax.swing.JFrame {
                     pps.executeUpdate();
 
                     JOptionPane.showMessageDialog(null, "Se ha modificado el registro");
-                  
+
                     btAgregar.setText("Agregar");
                 }
 
@@ -456,26 +503,25 @@ public class cliente extends javax.swing.JFrame {
 
     private void btBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btBuscarMouseClicked
         //rsClientesBuscados
-       
 
-            String sql = "SELECT cedula_rif, nombre_cliente, apellido_cliente, domicilio_cliente, "
-                    + "       id_tcliente, email_cliente, tlf_cliente, serial"
-                    + "  FROM cliente WHERE cliente.nombre_cliente like '%" + tfClienteBuscar.getText() + "%' OR "
-                    + "cliente.cedula_rif like '%" + tfClienteBuscar.getText() + "%'";
+        String sql = "SELECT cedula_rif, nombre_cliente, apellido_cliente, domicilio_cliente, "
+                + "       id_tcliente, email_cliente, tlf_cliente, serial"
+                + "  FROM cliente WHERE cliente.nombre_cliente like '%" + tfClienteBuscar.getText() + "%' OR "
+                + "cliente.cedula_rif like '%" + tfClienteBuscar.getText() + "%'";
 
-            try {
-                Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                rsClientesBuscados = st.executeQuery(sql);
-                modeloListaClientes = new DefaultListModel();
-                while (rsClientesBuscados.next()) {
-                    modeloListaClientes.addElement(rsClientesBuscados.getObject("nombre_cliente")
-                            + "   " + rsClientesBuscados.getObject("apellido_cliente")
-                             + "   " + rsClientesBuscados.getObject("cedula_rif"));
-                }
-                listaClientes.setModel(modeloListaClientes);
-            } catch (SQLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsClientesBuscados = st.executeQuery(sql);
+            modeloListaClientes = new DefaultListModel();
+            while (rsClientesBuscados.next()) {
+                modeloListaClientes.addElement(rsClientesBuscados.getObject("nombre_cliente")
+                        + "   " + rsClientesBuscados.getObject("apellido_cliente")
+                        + "   " + rsClientesBuscados.getObject("cedula_rif"));
             }
+            listaClientes.setModel(modeloListaClientes);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_btBuscarMouseClicked
@@ -509,7 +555,7 @@ public class cliente extends javax.swing.JFrame {
             for (int i = 0; i <= listaClientes.getSelectedIndex(); i++) {
                 rsClientesBuscados.next();
             }
-            
+
             if (rsClientesBuscados == null || listaClientes.getSelectedIndex() == -1) {
                 return;
             }
@@ -520,16 +566,16 @@ public class cliente extends javax.swing.JFrame {
 
             tfTipoCliente.setEnabled(false);
             tfTipoCliente.setText(rsClientesBuscados.getInt("id_tcliente") == 1 ? "Empresa" : "Cliente");
-            String tipoID=rsClientesBuscados.getString("cedula_rif");
-            tfCedula.setText(tipoID.substring(1, tipoID.length()-1));
-            cbTipoId.setSelectedItem(tipoID.substring(0,1));
+            String tipoID = rsClientesBuscados.getString("cedula_rif");
+            tfCedula.setText(tipoID.substring(1, tipoID.length() - 1));
+            cbTipoId.setSelectedItem(tipoID.substring(0, 1));
             //tfRif.setText(rsClientesBuscados.getString("rif"));
             tfNombre.setText(rsClientesBuscados.getString("nombre_cliente"));
             tfApellido.setText(rsClientesBuscados.getString("apellido_cliente"));
             tfDireccion.setText(rsClientesBuscados.getString("domicilio_cliente"));
             tfEmial.setText(rsClientesBuscados.getString("email_cliente"));
             tfTelefono.setText(rsClientesBuscados.getString("tlf_cliente"));
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -538,6 +584,26 @@ public class cliente extends javax.swing.JFrame {
     private void tfClienteBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfClienteBuscarKeyReleased
         btBuscarMouseClicked(null);
     }//GEN-LAST:event_tfClienteBuscarKeyReleased
+
+    private void tfEmialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEmialKeyPressed
+
+    }//GEN-LAST:event_tfEmialKeyPressed
+
+    private void tfCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfCedulaActionPerformed
+
+    private void tfCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCedulaKeyReleased
+
+    }//GEN-LAST:event_tfCedulaKeyReleased
+
+    private void tfCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCedulaKeyTyped
+        char c = evt.getKeyChar();
+        if (!((c >= '0') && (c <= '9')) || tfCedula.getText().length() >=12) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfCedulaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -595,6 +661,7 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -611,7 +678,7 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JTextField tfDireccion;
     private javax.swing.JTextField tfEmial;
     private javax.swing.JTextField tfNombre;
-    private javax.swing.JTextField tfTelefono;
+    private javax.swing.JFormattedTextField tfTelefono;
     private javax.swing.JTextField tfTipoCliente;
     // End of variables declaration//GEN-END:variables
 }

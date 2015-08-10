@@ -5,16 +5,27 @@
  */
 package sistema.de.facturacion;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -47,9 +58,9 @@ public class ReporteVenta extends javax.swing.JFrame {
         this.addWindowListener(exitListener);
 
         String sql = "SELECT venta.fecha_venta,venta.id_venta, venta.total_venta,  "
-                + "cliente.cedula_rif, cliente.nombre_cliente,  cliente.apellido_cliente FROM public.venta "
+                + "cliente.cedula_rif, cliente.nombre_cliente,  cliente.apellido_cliente,cliente.domicilio_cliente FROM public.venta "
                 + "INNER JOIN public.cliente ON venta.id_cliente=cliente.serial "
-                + " GROUP BY venta.id_venta,cliente.cedula_rif,cliente.nombre_cliente,cliente.apellido_cliente "
+                + " GROUP BY venta.id_venta,cliente.cedula_rif,cliente.nombre_cliente,cliente.apellido_cliente,cliente.domicilio_cliente "
                 + " ORDER BY venta.id_venta";
 
         try {
@@ -77,6 +88,10 @@ public class ReporteVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dialogo = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        texto = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfTotal = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -92,7 +107,7 @@ public class ReporteVenta extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         lbNombre = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        label3 = new javax.swing.JLabel();
         lbCedulaRif = new javax.swing.JLabel();
         lbNumeroVenta = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -100,7 +115,35 @@ public class ReporteVenta extends javax.swing.JFrame {
         tfBusqueda = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lbDireccion = new javax.swing.JLabel();
+        btImprimir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+
+        dialogo.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                dialogoWindowClosed(evt);
+            }
+        });
+
+        texto.setColumns(20);
+        texto.setRows(5);
+        jScrollPane3.setViewportView(texto);
+
+        javax.swing.GroupLayout dialogoLayout = new javax.swing.GroupLayout(dialogo.getContentPane());
+        dialogo.getContentPane().setLayout(dialogoLayout);
+        dialogoLayout.setHorizontalGroup(
+            dialogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        dialogoLayout.setVerticalGroup(
+            dialogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogoLayout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -204,13 +247,13 @@ public class ReporteVenta extends javax.swing.JFrame {
         lbNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 360, 20));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
-        jLabel3.setText("CEDULA O RIF");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, -1));
+        label3.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        label3.setText("DIRECCIÓN");
+        getContentPane().add(label3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 105, 130, -1));
 
         lbCedulaRif.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         lbCedulaRif.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(lbCedulaRif, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 150, 20));
+        getContentPane().add(lbCedulaRif, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 85, 150, 20));
 
         lbNumeroVenta.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         lbNumeroVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -239,6 +282,28 @@ public class ReporteVenta extends javax.swing.JFrame {
 
         jLabel6.setText("Busqueda por N°");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 90, 20));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        jLabel7.setText("CEDULA O RIF");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 130, -1));
+
+        lbDireccion.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
+        lbDireccion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        getContentPane().add(lbDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 105, 430, 20));
+
+        btImprimir.setText("Imprimir");
+        btImprimir.setMinimumSize(new java.awt.Dimension(134, 29));
+        btImprimir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btImprimirMouseClicked(evt);
+            }
+        });
+        btImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btImprimirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 70, 130, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -287,6 +352,7 @@ public class ReporteVenta extends javax.swing.JFrame {
             lbNombre.setText(rsVenta.getString("nombre_cliente") + " " + rsVenta.getString("apellido_cliente"));
             lbCedulaRif.setText(rsVenta.getString("cedula_rif"));
             lbfecha.setText(rsVenta.getDate("fecha_venta").toString());
+            lbDireccion.setText(rsVenta.getString("domicilio_cliente"));
 
             String sql = "SELECT venta.id_venta,  detalle_venta.cantidad,detalle_venta.importe, "
                     + "producto.nombre_producto,producto.descripcion_producto,  producto.id_producto, producto.precio_producto "
@@ -344,6 +410,29 @@ public class ReporteVenta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tfBusquedaKeyReleased
 
+    private void btImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btImprimirMouseClicked
+        Dimension size = this.getSize();
+        BufferedImage img = new BufferedImage(size.width, size.height, BufferedImage.TYPE_3BYTE_BGR);
+        Graphics g = img.getGraphics();
+        this.paint(g);
+        g.dispose();
+        
+        try {
+            ImageIO.write(img, "png", new File(
+                    new JFileChooser().getFileSystemView().getDefaultDirectory().toString()+"/factura"+lbNumeroVenta.getText()+".png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btImprimirMouseClicked
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btImprimirActionPerformed
+
+    private void dialogoWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialogoWindowClosed
+        texto.setText("");
+    }//GEN-LAST:event_dialogoWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -400,6 +489,8 @@ public class ReporteVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btImprimir;
+    private javax.swing.JDialog dialogo;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -410,16 +501,21 @@ public class ReporteVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel label3;
     private javax.swing.JLabel lbCedulaRif;
+    private javax.swing.JLabel lbDireccion;
     private javax.swing.JLabel lbNombre;
     private javax.swing.JLabel lbNumeroVenta;
     private javax.swing.JLabel lbfecha;
     private javax.swing.JList listaFacturas;
     private javax.swing.JTable tablaFactura;
+    private javax.swing.JTextArea texto;
     private javax.swing.JTextField tfBusqueda;
     private javax.swing.JTextField tfIva;
     private javax.swing.JTextField tfSubTotal;

@@ -53,6 +53,10 @@ public class Venta extends javax.swing.JFrame {
          + "  FROM producto WHERE producto.nombre_producto like '%" + tfProducto.getText() + "%'"
          + " OR producto.descripcion_producto like '%" + tfProducto.getText() + "%' OR CAST(producto.id_producto AS text) like '%"
          + tfProducto.getText() + "%'";*/
+        loadProductos();
+    }
+
+    private void loadProductos() {
         String sql = "SELECT nombre_producto, descripcion_producto, id_tproducto, precio_producto, "
                 + " id_producto, cantidad"
                 + " FROM producto WHERE producto.cantidad > 0 ORDER BY producto.id_producto";
@@ -69,7 +73,6 @@ public class Venta extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
@@ -81,6 +84,7 @@ public class Venta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel11 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfTotal = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -110,7 +114,14 @@ public class Venta extends javax.swing.JFrame {
         cbTipoId = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         listadoProductos = new javax.swing.JList();
+        jLabel22 = new javax.swing.JLabel();
+        spIva = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("IVA %");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -119,7 +130,7 @@ public class Venta extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("SUBTOTAL");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 475, -1, -1));
 
         tfTotal.setEditable(false);
         tfTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -127,20 +138,20 @@ public class Venta extends javax.swing.JFrame {
                 tfTotalActionPerformed(evt);
             }
         });
-        getContentPane().add(tfTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 480, 110, -1));
+        getContentPane().add(tfTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 475, 110, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("TOTAL A PAGAR");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 480, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 475, -1, -1));
 
         tfSubTotal.setEditable(false);
-        getContentPane().add(tfSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 90, -1));
+        getContentPane().add(tfSubTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 475, 90, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("IVA");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 470, 40, 30));
+        jLabel9.setText("Bs.");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 470, -1, 30));
 
         tfIva.setEditable(false);
         tfIva.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +159,7 @@ public class Venta extends javax.swing.JFrame {
                 tfIvaActionPerformed(evt);
             }
         });
-        getContentPane().add(tfIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 120, -1));
+        getContentPane().add(tfIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 475, 100, -1));
 
         jTCliente.setEditable(false);
         getContentPane().add(jTCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 170, -1));
@@ -328,13 +339,25 @@ public class Venta extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 240, 100));
 
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel22.setText("Seleccione Producto o Servicio");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 154, 190, -1));
+
+        spIva.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(12), Integer.valueOf(1), null, Integer.valueOf(1)));
+        getContentPane().add(spIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 475, 50, -1));
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("IVA %");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 470, -1, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/WINDOWS_7_WALLPAPER_BY_AMYSTIKALDESIGNS.JPG"))); // NOI18N
         jLabel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLabel1MouseMoved(evt);
             }
         });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 510));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 930, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -387,8 +410,8 @@ public class Venta extends javax.swing.JFrame {
         tfSubTotal.setText("");
         tfIva.setText("");
         tfTotal.setText("");
-        int cant=modeloTabla.getRowCount();
-        for (int i = 0; i <cant ; i++) {
+        int cant = modeloTabla.getRowCount();
+        for (int i = 0; i < cant; i++) {
             modeloTabla.removeRow(0);
         }
 
@@ -454,6 +477,9 @@ public class Venta extends javax.swing.JFrame {
             updateTotals();
             rsProductoBuscado.updateInt("cantidad", rsProductoBuscado.getInt("cantidad") - (int) spCantidad.getValue());
             rsProductoBuscado.updateRow();
+
+            loadProductos();
+            listadoProductosMouseClicked(null);
         } catch (SQLException ex) {
             Logger.getLogger(Venta.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -467,18 +493,29 @@ public class Venta extends javax.swing.JFrame {
     private void btEliminarRenglonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEliminarRenglonMouseClicked
         if (jTabledeventa.getSelectedRow() != -1) {
             try {
-
+                boolean sw = false;
                 rsProductoBuscado.beforeFirst();
                 while (rsProductoBuscado.next()) {
                     if (rsProductoBuscado.getInt("id_producto") == (int) modeloTabla.getValueAt(jTabledeventa.getSelectedRow(), 0)) {
-                        rsProductoBuscado.updateInt("cantidad", rsProductoBuscado.getInt("cantidad")
-                                + (int) modeloTabla.getValueAt(jTabledeventa.getSelectedRow(), 3));
-                        rsProductoBuscado.updateRow();
+                        sw = true;
+                        break;
                     }
                 }
 
+                PreparedStatement pps = Conexion.getConnection().prepareStatement("UPDATE producto"
+                        + "   SET cantidad=?"
+                        + "  WHERE id_producto = ?");
+                int valor = (int) modeloTabla.getValueAt(jTabledeventa.getSelectedRow(), 3);
+                pps.setInt(1, sw ? rsProductoBuscado.getInt("cantidad")
+                        + valor : valor);
+                pps.setInt(2, (int) modeloTabla.getValueAt(jTabledeventa.getSelectedRow(), 0));
+                pps.executeUpdate();
+
                 modeloTabla.removeRow(jTabledeventa.getSelectedRow());
                 updateTotals();
+
+                loadProductos();
+                listadoProductosMouseClicked(null);
             } catch (SQLException ex) {
                 Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -544,7 +581,7 @@ public class Venta extends javax.swing.JFrame {
     private void listadoProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listadoProductosMouseClicked
         try {
 
-            if (rsProductoBuscado == null || listadoProductos.getSelectedIndex() == -1) {
+            if ((rsProductoBuscado == null || listadoProductos.getSelectedIndex() == -1) && modeloListaProducto.getSize() > 0) {
                 return;
             }
             btAgregarProducto.setEnabled(false);
@@ -591,7 +628,7 @@ public class Venta extends javax.swing.JFrame {
         crearVenta.setEnabled(subTOtal != 0);
         tfSubTotal.setText(subTOtal + "");
         tfIva.setText((subTOtal * 0.12) + "");
-        tfTotal.setText((subTOtal + (subTOtal * 0.12)) + "");
+        tfTotal.setText((subTOtal + (subTOtal * ((int) spIva.getValue()) / 100)) + "");
     }
 
     /**
@@ -652,8 +689,11 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JButton jBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -668,6 +708,7 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JLabel lbNumeroVenta;
     private javax.swing.JList listadoProductos;
     private javax.swing.JSpinner spCantidad;
+    private javax.swing.JSpinner spIva;
     private javax.swing.JTextField tfIva;
     private javax.swing.JTextField tfProducto;
     private javax.swing.JTextField tfSubTotal;
