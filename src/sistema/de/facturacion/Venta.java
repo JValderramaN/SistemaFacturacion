@@ -343,7 +343,12 @@ public class Venta extends javax.swing.JFrame {
         jLabel22.setText("Seleccione Producto o Servicio");
         getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 154, 190, -1));
 
-        spIva.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(12), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spIva.setModel(new javax.swing.SpinnerNumberModel(12, 1, 100, 1));
+        spIva.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spIvaStateChanged(evt);
+            }
+        });
         getContentPane().add(spIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 475, 50, -1));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -626,6 +631,11 @@ public class Venta extends javax.swing.JFrame {
         new ReporteVenta().setVisible(true);
     }//GEN-LAST:event_jBVerMouseClicked
 
+    private void spIvaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spIvaStateChanged
+        tfIva.setText((Float.parseFloat(tfSubTotal.getText()) * ((int) spIva.getValue()) / 100) + "");
+        tfTotal.setText((Float.parseFloat(tfSubTotal.getText()) + (Float.parseFloat(tfSubTotal.getText()) * ((int) spIva.getValue()) / 100)) + "");
+    }//GEN-LAST:event_spIvaStateChanged
+
     private void updateTotals() {
         float subTOtal = 0;
         for (int i = 0; i < modeloTabla.getRowCount(); i++) {
@@ -633,7 +643,7 @@ public class Venta extends javax.swing.JFrame {
         }
         crearVenta.setEnabled(subTOtal != 0);
         tfSubTotal.setText(subTOtal + "");
-        tfIva.setText((subTOtal * 0.12) + "");
+        tfIva.setText((subTOtal * ((int) spIva.getValue()) / 100) + "");
         tfTotal.setText((subTOtal + (subTOtal * ((int) spIva.getValue()) / 100)) + "");
     }
 
