@@ -420,6 +420,8 @@ public class ReporteVenta extends javax.swing.JFrame {
         try {
             ImageIO.write(img, "png", new File(
                     new JFileChooser().getFileSystemView().getDefaultDirectory().toString()+"/factura"+lbNumeroVenta.getText()+".png"));
+            
+            JOptionPane.showMessageDialog(rootPane, "La factura ha sido guardada con nombre /factura"+lbNumeroVenta.getText()+".png en sus documentos");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -466,6 +466,12 @@ public class Venta extends javax.swing.JFrame {
 
     private void btAgregarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgregarProductoMouseClicked
         try {
+            
+            if(((int) spCantidad.getValue()) > rsProductoBuscado.getInt("cantidad") ){
+                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad igual o menor a "+rsProductoBuscado.getInt("cantidad"));
+                return;
+            }
+            
             modeloTabla.addRow(new Object[]{
                 rsProductoBuscado.getInt("id_producto"),
                 rsProductoBuscado.getString("nombre_producto"),

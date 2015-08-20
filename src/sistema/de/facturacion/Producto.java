@@ -47,8 +47,7 @@ public class Producto extends javax.swing.JFrame {
             }
         };
         this.addWindowListener(exitListener);
-        
-        
+
         btBuscarMouseClicked(null);
     }
 
@@ -120,6 +119,17 @@ public class Producto extends javax.swing.JFrame {
             }
         });
         panelDatos.add(btLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 110, 50));
+
+        tfPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfPrecioFocusLost(evt);
+            }
+        });
+        tfPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfPrecioKeyTyped(evt);
+            }
+        });
         panelDatos.add(tfPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 200, -1));
 
         tfDescripcion.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +363,7 @@ public class Producto extends javax.swing.JFrame {
                     pps.executeUpdate();
 
                     JOptionPane.showMessageDialog(null, "Se ha modificado el registro");
-                    
+
                     btAgregar.setText("Agregar");
                 }
 
@@ -402,25 +412,24 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimpiarMouseClicked
 
     private void btBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btBuscarMouseClicked
-          try {
-              
-              String sql = "SELECT nombre_producto, descripcion_producto, id_tproducto, precio_producto, cantidad, id_producto"
-                    + "  FROM producto WHERE producto.nombre_producto like '%" + tfProductoBuscar.getText() + "%'"
-                  + " OR producto.descripcion_producto like '%" + tfProductoBuscar.getText() + "%' OR CAST(producto.id_producto AS text) like '%" 
-                      +tfProductoBuscar.getText() + "%'";
+        try {
 
-            
-                Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                rsProductosBuscados = st.executeQuery(sql);
-                modeloListaProducto = new DefaultListModel();
-                while (rsProductosBuscados.next()) {
-                    modeloListaProducto.addElement(rsProductosBuscados.getObject("nombre_producto") + "  ID:"+
-                            rsProductosBuscados.getObject("id_producto"));
-                }
-                listaProductos.setModel(modeloListaProducto);
-            } catch (Exception ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            String sql = "SELECT nombre_producto, descripcion_producto, id_tproducto, precio_producto, cantidad, id_producto"
+                    + "  FROM producto WHERE producto.nombre_producto like '%" + tfProductoBuscar.getText() + "%'"
+                    + " OR producto.descripcion_producto like '%" + tfProductoBuscar.getText() + "%' OR CAST(producto.id_producto AS text) like '%"
+                    + tfProductoBuscar.getText() + "%'";
+
+            Statement st = Conexion.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsProductosBuscados = st.executeQuery(sql);
+            modeloListaProducto = new DefaultListModel();
+            while (rsProductosBuscados.next()) {
+                modeloListaProducto.addElement(rsProductosBuscados.getObject("nombre_producto") + "  ID:"
+                        + rsProductosBuscados.getObject("id_producto"));
             }
+            listaProductos.setModel(modeloListaProducto);
+        } catch (Exception ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btBuscarMouseClicked
 
     private void listaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaProductosMouseClicked
@@ -429,8 +438,7 @@ public class Producto extends javax.swing.JFrame {
             for (int i = 0; i <= listaProductos.getSelectedIndex(); i++) {
                 rsProductosBuscados.next();
             }
-            
-            
+
             if (rsProductosBuscados == null || listaProductos.getSelectedIndex() == -1) {
                 return;
             }
@@ -446,7 +454,7 @@ public class Producto extends javax.swing.JFrame {
             tfPrecio.setText(rsProductosBuscados.getString("precio_producto"));
             spCantidad.setValue(rsProductosBuscados.getInt("cantidad"));
             jLabel18.setText(rsProductosBuscados.getInt("id_tproducto") == 1 ? "Horas de Trabajo" : "Cantidad");
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -460,7 +468,7 @@ public class Producto extends javax.swing.JFrame {
 
         try {
             PreparedStatement pps = Conexion.getConnection().prepareStatement(""
-                + "DELETE FROM producto WHERE id_producto = ?");
+                    + "DELETE FROM producto WHERE id_producto = ?");
 
             pps.setInt(1, rsProductosBuscados.getInt("id_producto"));
             pps.executeUpdate();
@@ -476,6 +484,24 @@ public class Producto extends javax.swing.JFrame {
     private void tfProductoBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfProductoBuscarKeyReleased
         btBuscarMouseClicked(null);
     }//GEN-LAST:event_tfProductoBuscarKeyReleased
+
+    private void tfPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPrecioKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfPrecioKeyTyped
+
+    private void tfPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPrecioFocusLost
+        try {
+            if (tfPrecio.getText().equals("")) {
+
+            } else {
+                double dValue = Double.parseDouble(tfPrecio.getText());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Debe ingresar un valor numerico. Utilice \".\" para decimales");
+            tfPrecio.setText("");
+            tfPrecio.requestFocus();
+        }
+    }//GEN-LAST:event_tfPrecioFocusLost
 
     /**
      * @param args the command line arguments

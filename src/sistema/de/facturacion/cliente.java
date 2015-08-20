@@ -51,7 +51,7 @@ public class cliente extends javax.swing.JFrame {
         };
         this.addWindowListener(exitListener);
 
-        btBuscarMouseClicked(null);
+        //btBuscarMouseClicked(null);
     }
 
     /**
@@ -153,11 +153,21 @@ public class cliente extends javax.swing.JFrame {
                 tfApellidoActionPerformed(evt);
             }
         });
+        tfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfApellidoKeyTyped(evt);
+            }
+        });
         panelDatos.add(tfApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 200, 30));
 
         tfNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNombreActionPerformed(evt);
+            }
+        });
+        tfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfNombreKeyTyped(evt);
             }
         });
         panelDatos.add(tfNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 200, 30));
@@ -604,6 +614,20 @@ public class cliente extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_tfCedulaKeyTyped
+
+    private void tfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNombreKeyTyped
+       if (!Character.isWhitespace(evt.getKeyChar()) && !Character.isLetter(evt.getKeyChar())){
+           getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfNombreKeyTyped
+
+    private void tfApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfApellidoKeyTyped
+        if (!Character.isWhitespace(evt.getKeyChar()) && !Character.isLetter(evt.getKeyChar())){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfApellidoKeyTyped
 
     /**
      * @param args the command line arguments
