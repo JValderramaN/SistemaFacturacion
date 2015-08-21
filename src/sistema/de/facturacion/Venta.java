@@ -319,6 +319,11 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(btEliminarRenglon, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 90, 30));
 
         spCantidad.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spCantidad.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spCantidadStateChanged(evt);
+            }
+        });
         getContentPane().add(spCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 60, -1));
 
         lbNumeroVenta.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
@@ -471,12 +476,12 @@ public class Venta extends javax.swing.JFrame {
 
     private void btAgregarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btAgregarProductoMouseClicked
         try {
-            
-            if(((int) spCantidad.getValue()) > rsProductoBuscado.getInt("cantidad") ){
-                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad igual o menor a "+rsProductoBuscado.getInt("cantidad"));
+
+            if (((int) spCantidad.getValue()) > rsProductoBuscado.getInt("cantidad")) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad igual o menor a " + rsProductoBuscado.getInt("cantidad"));
                 return;
             }
-            
+
             modeloTabla.addRow(new Object[]{
                 rsProductoBuscado.getInt("id_producto"),
                 rsProductoBuscado.getString("nombre_producto"),
@@ -635,6 +640,17 @@ public class Venta extends javax.swing.JFrame {
         tfIva.setText((Float.parseFloat(tfSubTotal.getText()) * ((int) spIva.getValue()) / 100) + "");
         tfTotal.setText((Float.parseFloat(tfSubTotal.getText()) + (Float.parseFloat(tfSubTotal.getText()) * ((int) spIva.getValue()) / 100)) + "");
     }//GEN-LAST:event_spIvaStateChanged
+
+    private void spCantidadStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spCantidadStateChanged
+        try {
+            if (((int) spCantidad.getValue()) > rsProductoBuscado.getInt("cantidad")) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad igual o menor a " + rsProductoBuscado.getInt("cantidad"));
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_spCantidadStateChanged
 
     private void updateTotals() {
         float subTOtal = 0;
